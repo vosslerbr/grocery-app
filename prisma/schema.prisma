@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  email    String @unique
+  name     String?
+  password String
+  created_date  DateTime @default(now())
+  modified_date DateTime @default(now())
+  list     List?
+}
+
+model List {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  owner         User @relation(fields: [userId], references: [id])
+  userId        String @unique @db.ObjectId
+  categories    Category[]
+  created_date  DateTime @default(now())
+  modified_date DateTime @default(now())
+  title         String
+}
+
+model Category {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  list          List @relation(fields: [listId], references: [id])
+  listId        String @db.ObjectId
+  created_date  DateTime @default(now())
+  items         Item[]
+  modified_date DateTime @default(now())
+  title         String
+}
+
+model Item {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  category      Category @relation(fields: [categoryId], references: [id])
+  categoryId    String @db.ObjectId
+  checked       Boolean @default(false)
+  created_date  DateTime @default(now())
+  modified_date DateTime @default(now())
+  name          String
+  quantity      Int @default(1)
+}
+
+
