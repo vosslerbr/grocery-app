@@ -1,14 +1,11 @@
 <template>
-  <div>
-    <p>{{ posts.length }}</p>
-    <p>{{ email }}</p>
+  <div v-for="(list, index) in lists" :key="list.id">
+    <p>{{ list.title }}</p>
   </div>
 </template>
 
 <script setup>
-  const { data: posts } = await useFetch('/api/hello');
+  const { data: lists } = await useFetch('/api/lists/635eefdde903f94a8e534db0');
 
-  const email = posts.value[0].email;
-
-  console.log(posts);
+  console.log(lists);
 </script>
