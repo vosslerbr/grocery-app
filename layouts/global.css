@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'IBMPlexSansJP';
+  src: local('IBMPlexSansJP'), url(~/assets/fonts/IBMPlexSansJP-Regular.ttf) format('truetype');
+}
+
+html {
+  font-family: 'IBMPlexSansJP';
+}
+
+html,
+body {
+  background-color: var(--surface-ground);
+}
